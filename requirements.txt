@@ -1,0 +1,11 @@
+transformers==4.57.6
+huggingface-hub>=0.34.0,<1.0
+accelerate>=1.0.0,<2.0.0
+safetensors>=0.4.5,<1.0.0
+
+numpy>=1.26.0,<3.0.0
+Pillow>=10.0.0,<13.0.0
+
+tifffile>=2024.8.10
+scipy>=1.11.0,<2.0.0
+requests>=2.31.0,<3.0.0

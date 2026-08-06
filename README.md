@@ -4,10 +4,6 @@
   <b>A unified vision-language model for RGB, SAR, multispectral, and hyperspectral remote-sensing imagery</b>
 </p>
 
-<p align="center">
-  Developed by <a href="https://github.com/AIR-CAS-zhimu">AIR-CAS-zhimu</a>
-</p>
-
 > **Model weights:** [AIR-CAS-kx/Zhimu-1.0](https://huggingface.co/AIR-CAS-kx/Zhimu-1.0)  
 > **Inference code:** this GitHub repository
 
@@ -156,7 +152,7 @@ CUDA_VISIBLE_DEVICES=0 python test.py \
   --model-dir ./Zhimu-1.0 \
   --input ./examples/rgb.jpg \
   --modality rgb \
-  --prompt "Describe the main land-cover types and objects in this image." \
+  --prompt "Classify the given image in one of the following classes. Classes: palace, beach, dense residential, ground track field, medium residential, railway, harbor, sea ice, desert, chaparral. \nAnswer in one word or a short phrase." \
   --max-new-tokens 128
 ```
 
@@ -167,7 +163,7 @@ CUDA_VISIBLE_DEVICES=0 python test.py \
   --model-dir ./Zhimu-1.0 \
   --input ./examples/sar.npy \
   --modality sar \
-  --prompt "Describe the main scene and objects in this SAR image." \
+  --prompt "Locate all targets in this SAR image. Valid labels: ship, aircraft, car, tank, bridge, harbor. Output a JSON array, where each item has \"bbox_2d\" and \"label\"." \
   --max-new-tokens 128
 ```
 
@@ -180,7 +176,7 @@ CUDA_VISIBLE_DEVICES=0 python test.py \
   --model-dir ./Zhimu-1.0 \
   --input ./examples/multispectral.tif \
   --modality multispectral \
-  --prompt "What types of land use are visible in the image, and where are they located?" \
+  --prompt "What is the shape of the road in the image?" \
   --max-new-tokens 128
 ```
 
@@ -190,10 +186,10 @@ The released multispectral branch expects 12 channels by default.
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python test.py \
-  --model-dir ./RS-Anything-8B \
+  --model-dir ./Zhimu-1.0 \
   --input ./examples/hyperspectral.npy \
   --modality hyperspectral \
-  --prompt "Identify the main land-cover types in this hyperspectral image." \
+  --prompt "What is the correct level3 land-cover class for this remote sensing image? Choose the best answer from the options below and reply with the option letter and class name only.\n\nA. durum_hard_wheat\nB. lentils\nC. pasture_meadow_grassland_grass\nD. triticale" \
   --max-new-tokens 128
 ```
 

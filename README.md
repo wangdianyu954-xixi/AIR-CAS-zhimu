@@ -1,4 +1,4 @@
-# RS-Anything-8B
+# Zhimu-1.0
 
 <p align="center">
   <b>A unified vision-language model for RGB, SAR, multispectral, and hyperspectral remote-sensing imagery</b>
@@ -8,12 +8,12 @@
   Developed by <a href="https://github.com/AIR-CAS-zhimu">AIR-CAS-zhimu</a>
 </p>
 
-> **Model weights:** [AIR-CAS-zhimu/RS-Anything-8B](https://huggingface.co/AIR-CAS-zhimu/RS-Anything-8B)  
+> **Model weights:** [AIR-CAS-kx/Zhimu-1.0](https://huggingface.co/AIR-CAS-kx/Zhimu-1.0)  
 > **Inference code:** this GitHub repository
 
 ## Overview
 
-RS-Anything-8B is a remote-sensing multimodal large language model built on Qwen3-VL. Its vision encoder is adapted to process four remote-sensing modalities within a unified framework:
+Zhimu-1.0 is a remote-sensing multimodal large language model built on Qwen3-VL. Its vision encoder is adapted to process four remote-sensing modalities within a unified framework:
 
 - RGB imagery
 - Synthetic Aperture Radar (SAR)
@@ -26,8 +26,8 @@ The released model uses modality-specific patch embedding branches and modality-
 |---|---|---:|---|
 | RGB | `rgb` | 3 | `.jpg`, `.jpeg`, `.png`, `.tif` |
 | SAR | `sar` | 1 | `.npy`, `.npz`, `.tif`, `.tiff`, grayscale images |
-| Multispectral | `multispectral` | 12 | `.npy`, `.npz`, `.tif`, `.tiff`, `.mat` |
-| Hyperspectral | `hyperspectral` | 218 | `.npy`, `.npz`, `.tif`, `.tiff`, `.mat` |
+| Multispectral | `multispectral` | 12 | `.npy`, `.npz`, `.tif`, `.tiff` |
+| Hyperspectral | `hyperspectral` | 218 | `.npy`, `.npz`, `.tif`, `.tiff` |
 
 The channel counts above correspond to the released model configuration. Inputs with other channel counts require a matching patch embedding branch in the model configuration and weights.
 
@@ -36,7 +36,7 @@ The channel counts above correspond to the released model configuration. Inputs 
 The GitHub repository contains the public inference script:
 
 ```text
-RS-Anything/
+AIR-CAS-zhimu/
 ├── README.md
 └── test.py
 ```
@@ -44,7 +44,7 @@ RS-Anything/
 The Hugging Face model repository contains the complete local model package:
 
 ```text
-RS-Anything-8B/
+Zhimu-1.0/
 ├── config.json
 ├── configuration_qwen3_vl.py
 ├── modeling_qwen3_vl.py
@@ -68,17 +68,15 @@ Some tokenizer or processor files may vary slightly depending on the final Huggi
 ### 1. Clone the inference repository
 
 ```bash
-git clone https://github.com/AIR-CAS-zhimu/RS-Anything.git
-cd RS-Anything
+git clone https://github.com/wangdianyu954-xixi/AIR-CAS-zhimu.git
+cd AIR-CAS-zhimu
 ```
-
-Replace the repository URL above if the final GitHub repository uses a different name.
 
 ### 2. Create a Python environment
 
 ```bash
-conda create -n rs_anything python=3.11 -y
-conda activate rs_anything
+conda create -n zhimu python=3.11 -y
+conda activate zhimu
 ```
 
 Install a PyTorch build compatible with your GPU and CUDA environment first. Then install the remaining dependencies:
@@ -117,8 +115,8 @@ pip install "huggingface-hub>=0.34.0,<1.0"
 Download the complete model repository:
 
 ```bash
-hf download AIR-CAS-zhimu/RS-Anything-8B \
-  --local-dir ./RS-Anything-8B
+hf download AIR-CAS-kx/Zhimu-1.0 \
+  --local-dir ./Zhimu-1.0
 ```
 
 For a private or gated repository, authenticate first:
@@ -135,7 +133,7 @@ General command:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python test.py \
-  --model-dir /path/to/RS-Anything-8B \
+  --model-dir /path/to/Zhimu-1.0 \
   --input /path/to/input \
   --modality MODALITY \
   --prompt "Your question" \
@@ -155,7 +153,7 @@ hyperspectral
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python test.py \
-  --model-dir ./RS-Anything-8B \
+  --model-dir ./Zhimu-1.0 \
   --input ./examples/rgb.jpg \
   --modality rgb \
   --prompt "Describe the main land-cover types and objects in this image." \
@@ -166,7 +164,7 @@ CUDA_VISIBLE_DEVICES=0 python test.py \
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python test.py \
-  --model-dir ./RS-Anything-8B \
+  --model-dir ./Zhimu-1.0 \
   --input ./examples/sar.npy \
   --modality sar \
   --prompt "Describe the main scene and objects in this SAR image." \
@@ -179,7 +177,7 @@ A two-dimensional SAR array with shape `(H, W)` is automatically converted to `(
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python test.py \
-  --model-dir ./RS-Anything-8B \
+  --model-dir ./Zhimu-1.0 \
   --input ./examples/multispectral.tif \
   --modality multispectral \
   --prompt "What types of land use are visible in the image, and where are they located?" \
@@ -232,7 +230,7 @@ For example:
 
 ```bash
 python test.py \
-  --model-dir ./RS-Anything-8B \
+  --model-dir ./Zhimu-1.0 \
   --input ./examples/multispectral.npy \
   --modality multispectral \
   --input-layout chw \
@@ -247,13 +245,6 @@ If an `.npz` file contains multiple arrays, specify the required key:
 --npz-key image
 ```
 
-### MAT files
-
-If a `.mat` file contains multiple candidate arrays, specify the required variable:
-
-```bash
---mat-key data
-```
 
 ### Custom channel counts
 
@@ -296,13 +287,6 @@ The public test script performs the following checks before and during inference
 8. Runs deterministic text generation with `do_sample=False`.
 9. Reports the generated answer and GPU memory usage.
 
-## Hardware Notes
-
-RS-Anything-8B contains approximately 9.32 billion parameters.
-
-In an internal BF16 test using a 12-channel image with spatial size `224 × 224`, inference used approximately 17.6 GB of peak GPU memory. Actual memory usage depends on image resolution, token length, software versions, attention implementation, and GPU architecture.
-
-A CUDA-capable GPU with at least 24 GB of memory is recommended for the default test configuration.
 
 ## Troubleshooting
 
@@ -326,11 +310,6 @@ pip install --force-reinstall "huggingface-hub>=0.34.0,<1.0"
 pip install tifffile
 ```
 
-### Missing MAT support
-
-```bash
-pip install scipy
-```
 
 ### CUDA out of memory
 

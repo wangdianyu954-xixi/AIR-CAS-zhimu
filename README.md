@@ -8,7 +8,9 @@
 > **Inference code:** this GitHub repository
 
 ## Overview
-
+<p align="center">
+<img src="overview.png" width="900"/>
+</p>
 Zhimu-1.0 is a remote-sensing multimodal large language model built on Qwen3-VL. Its vision encoder is adapted to process four remote-sensing modalities within a unified framework:
 
 - RGB imagery
@@ -35,6 +37,9 @@ The GitHub repository contains the public inference script:
 AIR-CAS-zhimu/
 ├── README.md
 └── test.py
+└── requirements.txt
+└── examples
+└── overview.png
 ```
 
 The Hugging Face model repository contains the complete local model package:

@@ -373,6 +373,7 @@ Citation information will be added after the associated paper or technical repor
 
 ## License
 
+Creative Commons Attribution-NonCommercial 4.0 International：
 Zhimu-1.0 is released exclusively for academic research, scientific experimentation, and non-commercial educational purposes.
 
 Commercial use of this model, including its weights, source code, and derivative models, is strictly prohibited without prior written authorization from the copyright holders.

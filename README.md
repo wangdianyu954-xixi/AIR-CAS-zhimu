@@ -373,7 +373,11 @@ Citation information will be added after the associated paper or technical repor
 
 ## License
 
-Please refer to the `LICENSE` file in this repository and the license terms of the upstream Qwen3-VL model. Model users are responsible for complying with all applicable licenses and usage restrictions.
+Zhimu-1.0 is released exclusively for academic research, scientific experimentation, and non-commercial educational purposes.
+
+Commercial use of this model, including its weights, source code, and derivative models, is strictly prohibited without prior written authorization from the copyright holders.
+
+For commercial licensing inquiries, please contact the project maintainers.
 
 ## Acknowledgements
 
